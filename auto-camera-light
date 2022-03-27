@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+IO.popen('log stream') do |log|
+  log.each do |line|
+    begin
+      if line =~ /UVCAssistant:.*stop/
+        system("shortcuts run 'Camera Light Off'")
+      elsif line =~ /UVCAssistant:.*start/
+        system("shortcuts run 'Camera Light On'")
+      end
+    rescue ArgumentError
+    end
+  end
+end
